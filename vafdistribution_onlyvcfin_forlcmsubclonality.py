@@ -1,0 +1,18 @@
+#!/home/jaesoon/miniconda3/bin/python
+
+import sys
+
+infile_path = sys.argv[1]
+
+import cyvcf2
+vcf_object = cyvcf2.VCF(infile_path)
+variant_list = list(vcf_object)
+
+data=[]
+for i in range(len(variant_list)):
+	data.append(variant_list[i].gt_alt_freqs[0])
+
+import matplotlib.pyplot as plt
+
+plt.hist(data,bins=100)
+plt.savefig(f"{sys.argv[1]}.vaf.png",dpi=300)
